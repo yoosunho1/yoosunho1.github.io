@@ -224,13 +224,19 @@ const App: React.FC = () => {
     };
 
     const buildChatHistory = (currentUserMessage: string) => {
+        const systemPrompt = `당신은 유선호 AI입니다. 사용자에게 도움이 되는 친근하고 전문적인 AI 어시스턴트로서 응답해주세요.`;
+    
         const recent = messages.slice(-10);
-        if (recent.length <= 1) return `사용자: ${currentUserMessage}`;
+        if (recent.length <= 1) {
+            return `${systemPrompt}\n\n사용자: ${currentUserMessage}`;
+        }
+        
         const history = recent
             .slice(1)
-            .map(m => `${m.role === 'user' ? '사용자' : '어시스턴트'}: ${m.content}`)
+            .map(m => `${m.role === 'user' ? '사용자' : '유선호 AI'}: ${m.content}`)
             .join('\n');
-        return `\n\n[대화 히스토리]\n${history}\n\n[현재 질문]\n사용자: ${currentUserMessage}`;
+        
+        return `${systemPrompt}\n\n[대화 히스토리]\n${history}\n\n[현재 질문]\n사용자: ${currentUserMessage}`;
     };
 
     const callGeminiAPI = async (userMessage: string) => {
