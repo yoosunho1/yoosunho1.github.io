@@ -1,0 +1,193 @@
+:root {
+    --background: 210 20% 98%;
+    --foreground: 210 20% 14%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 210 20% 14%;
+
+    --sidebar: 210 25% 94%;
+
+    --muted: 210 15% 88%;
+    --muted-foreground: 210 15% 45%;
+
+    --primary: 210 85% 58%;
+    --primary-foreground: 0 0% 100%;
+
+    --accent: 200 85% 60%;
+    --accent-foreground: 0 0% 100%;
+
+    --border: 210 20% 82%;
+    --input: 0 0% 100%;
+    --input-disabled: 210 20% 92%;
+    --ring: 210 85% 58%;
+
+    --gradient-from: 210 85% 58%;
+    --gradient-to: 200 85% 60%;
+    --shadow-light: 210 20% 85%;
+    --shadow-medium: 210 15% 75%;
+    --divider-soft: 210 15% 90%;
+}
+
+@import "tailwindcss";
+
+body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+svg {
+    fill: currentColor;
+}
+
+aside {
+    background: linear-gradient(135deg, hsl(var(--sidebar)) 0%, hsl(210 25% 96%) 100%);
+    position: relative;
+}
+
+aside::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 1px;
+    height: 100%;
+    background: hsl(var(--divider-soft));
+    opacity: 0.8;
+}
+
+main {
+    background: linear-gradient(180deg, hsl(var(--card)) 0%, hsl(210 10% 99%) 100%);
+}
+
+/* 스크롤바 */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, hsl(var(--shadow-light)), hsl(var(--shadow-medium)));
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, hsl(var(--shadow-medium)), hsl(210 15% 65%));
+}
+
+/* 버튼 */
+.modern-button {
+    background: linear-gradient(135deg, hsl(var(--muted)) 0%, hsl(210 20% 90%) 100%);
+    border: 1px solid hsl(var(--border));
+    box-shadow: 0 2px 4px -1px rgba(0,0,0,.06), 0 1px 2px -1px rgba(0,0,0,.06);
+    transition: all .2s ease;
+}
+.modern-button:hover {
+    background: linear-gradient(135deg, hsl(210 20% 88%) 0%, hsl(210 20% 85%) 100%);
+    box-shadow: 0 4px 8px -2px rgba(0,0,0,.1), 0 2px 4px -2px rgba(0,0,0,.06);
+    transform: translateY(-1px);
+}
+
+/* 입력창 */
+.modern-input {
+    background: hsl(var(--input));
+    border: 1px solid hsl(var(--border));
+    box-shadow: inset 0 2px 4px -1px rgba(0,0,0,.06);
+    transition: all .3s ease;
+}
+.modern-input.disabled {
+    background: hsl(var(--input-disabled));
+    border-color: hsl(var(--border));
+    opacity: .8;
+}
+.modern-input:focus-within:not(.disabled) {
+    border-color: hsl(var(--primary));
+    box-shadow: inset 0 2px 4px -1px rgba(0,0,0,.06), 0 0 0 3px hsl(var(--primary) / .1);
+}
+
+/* 말풍선 그림자 */
+.user-message-bubble {
+    box-shadow: 0 4px 12px -2px rgba(59,130,246,.3), 0 2px 6px -2px rgba(59,130,246,.2);
+}
+.ai-message-bubble {
+    box-shadow: 0 2px 8px -2px rgba(0,0,0,.08), 0 1px 4px -1px rgba(0,0,0,.06);
+    border: 1px solid hsl(var(--border));
+}
+
+/* 부드러운 라인 */
+.soft-divider-top { border-top: 1px solid hsl(var(--divider-soft)); }
+.soft-divider-bottom { border-bottom: 1px solid hsl(var(--divider-soft)); }
+
+/* 최근 대화 카드 */
+.chat-history-item {
+    background: hsl(var(--input));
+    border: 1px solid hsl(var(--border));
+    transition: all .2s ease;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+.chat-history-item:hover {
+    background: hsl(210 20% 96%);
+    border-color: hsl(var(--primary) / .5);
+    transform: translateX(2px);
+}
+.chat-history-item:hover .delete-button { opacity: 1; }
+.chat-history-item.active {
+    background: hsl(var(--primary) / .1);
+    border-color: hsl(var(--primary));
+}
+
+/* 삭제 버튼 */
+.delete-button {
+    opacity: 0;
+    transition: opacity .2s ease;
+    background: hsl(0 70% 50%);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    cursor: pointer;
+}
+.delete-button:hover { background: hsl(0 70% 45%); }
+
+/* 로고 폰트 */
+.korean-logo { font-family: 'Pretendard', 'Noto Sans KR', sans-serif; font-weight: 700; }
+
+/* 말줄임 */
+.chat-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: calc(100% - 30px);
+}
+
+/* 모달 */
+.modal-overlay {
+    position: fixed; inset: 0;
+    background-color: rgba(0,0,0,.5);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 1000; animation: fadeIn .2s ease-out;
+}
+.modal-content {
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    border-radius: 16px; padding: 24px;
+    max-width: 400px; width: 90%;
+    box-shadow: 0 20px 25px -5px rgba(0,0,0,.1), 0 10px 10px -5px rgba(0,0,0,.04);
+    animation: slideUp .2s ease-out;
+}
+.modal-button {
+    padding: 8px 16px; border-radius: 8px; font-weight: 500; font-size: 14px;
+    transition: all .2s ease; border: 1px solid; cursor: pointer;
+}
+.modal-button-danger { background: hsl(0 70% 50%); color: #fff; border-color: hsl(0 70% 50%); }
+.modal-button-danger:hover { background: hsl(0 70% 45%); border-color: hsl(0 70% 45%); }
+.modal-button-secondary { background: transparent; color: hsl(var(--foreground)); border-color: hsl(var(--border)); }
+.modal-button-secondary:hover { background: hsl(var(--muted)); }
+
+@keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
+@keyframes slideUp { from { opacity: 0; transform: translateY(16px) } to { opacity: 1; transform: translateY(0) } }
