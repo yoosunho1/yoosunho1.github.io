@@ -243,7 +243,7 @@ const App: React.FC = () => {
         const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
         if (!apiKey) throw new Error('Gemini API 키가 설정되지 않았습니다.');
         const genAI = new GoogleGenerativeAI(apiKey);
-        const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash-latest' });
+        const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash-lite' });
         const prompt = buildChatHistory(userMessage);
         const result = await model.generateContent(prompt);
         return result.response.text();
